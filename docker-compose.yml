@@ -14,4 +14,4 @@ services:
 
 volumes:
   filedb-data:
-    external: true
+    external: false
