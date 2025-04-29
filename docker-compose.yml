@@ -12,6 +12,14 @@ services:
       - 27027:27017
     command: mongod --logpath=/dev/null # --quiet
 
+  web:
+    build: .
+    ports:
+      - 6011:6011
+    depends_on:
+      - filedb
+    env_file:
+      - variables.env
 volumes:
   filedb-data:
-    external: true
+    external: false
