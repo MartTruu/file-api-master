@@ -31,4 +31,9 @@ class FileController(
             .body(resource)
     }
 
+    @DeleteMapping("/file/{token}")
+    fun deleteFile(@PathVariable token: String): ResponseEntity<Void> {
+        fileService.deleteFile(token)
+        return ResponseEntity.noContent().build()
+    }
 }

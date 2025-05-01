@@ -2,6 +2,7 @@ package com.hrblizz.fileapi.service.impl
 
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.hrblizz.fileapi.controller.FileMetadataDto
+import com.hrblizz.fileapi.controller.exception.NotFoundException
 import com.hrblizz.fileapi.data.entities.FileEntity
 import com.hrblizz.fileapi.data.repository.FileEntityRepository
 import com.hrblizz.fileapi.service.FileData
@@ -73,4 +74,10 @@ class FileServiceImpl(
         )
     }
 
+    @Transactional
+    override fun deleteFile(token: String) {
+        val ent = repository.findByToken(token)
+            ?: throw NotFoundException("File with token '$token' not found")
+        repository.delete(ent)
+    }
 }

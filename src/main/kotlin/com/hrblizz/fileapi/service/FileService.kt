@@ -18,6 +18,7 @@ interface FileService {
 
     fun getFile(token: String): FileData?
 
+    fun deleteFile(token: String)
 }
 
 data class FileData(
