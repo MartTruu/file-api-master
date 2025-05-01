@@ -12,6 +12,50 @@ paths:
         '200':
           description: It's a response.
 
+  /files:
+    post:
+      summary: Upload a single file
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - name
+                - contentType
+                - meta
+                - source
+                - content
+              properties:
+                name:
+                  type: string
+                  description: Original filename
+                contentType:
+                  type: string
+                  description: MIME type of the file
+                meta:
+                  type: string
+                  description: JSON‐encoded metadata
+                source:
+                  type: string
+                  description: Source identifier
+                expireTime:
+                  type: string
+                  format: date-time
+                  description: Optional ISO-8601 expiration time
+                content:
+                  type: string
+                  format: binary
+                  description: File content
+      responses:
+        '201':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadResponse'
+
   /files/metas:
     post:
       summary: Retrieve metadata for multiple files by token
@@ -66,6 +110,14 @@ components:
         type: string
 
   schemas:
+    UploadResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Generated token for the uploaded file
+      required:
+        - token
 
     FilesMetaRequest:
       type: object

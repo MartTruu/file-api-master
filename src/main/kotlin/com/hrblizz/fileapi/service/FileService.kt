@@ -1,8 +1,18 @@
 package com.hrblizz.fileapi.service
 
+import org.springframework.web.multipart.MultipartFile
 import com.hrblizz.fileapi.controller.FileMetadataDto
 
 interface FileService {
+
+    fun uploadFile(
+        name: String,
+        contentType: String,
+        metaJson: String,
+        source: String,
+        expireTime: String?,
+        content: MultipartFile
+    ): String
 
     fun getFilesMeta(tokens: List<String>): Map<String, FileMetadataDto>
 
